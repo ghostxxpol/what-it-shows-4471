@@ -4,7 +4,7 @@ title: '#4471 · two problems, not one'
 owner: ghostxxpol
 status: open
 reviewed: '2026-11-04'
-signature: ghostxxpol
+signature: 'v1.eyJzdWIiOiIxNzAwIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTM4Mjg2MjEsImV4cCI6MTc5MzkxNTAyMX0.ABtbycTxdflg1-x6PbPcq8r5K1qgzz5TINzDR_iDnkY'
 ---
 
 <script>

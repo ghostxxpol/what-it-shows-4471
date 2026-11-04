@@ -11,7 +11,7 @@ Issue 3 stays open: the 5 one-day-move reports are not covered by the dd/mm pars
 
 The kb page for the desk:
 
-- `src/routes/kb/incidents/4471-problems/+page.svx`: the page (signed `ghostxxpol`; uses the desk's own `CauseTable`)
+- `src/routes/kb/incidents/4471-problems/+page.svx`: the page (signed with the course ticket; uses the desk's own `CauseTable`)
 - `rendered/4471-problems.html`: the page as the desk will see it
 
 Prepared with AI assistance; reviewed and validated by ghostxxpol.
