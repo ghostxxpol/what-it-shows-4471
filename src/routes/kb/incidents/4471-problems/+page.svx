@@ -22,10 +22,13 @@ the same subjects cover two different causes. A parser fix will close only the f
 ## The two problems
 
 1. **`parser`**: the shared parser reads every date month first, so tenants that write the day
-   first get dates flipped. Ticket: [issue 1](https://github.com/ghostxxpol/what-it-shows-4471/issues/1).
+   first get dates flipped. Engineering closed #4471 on 5 October: **fixed** by
+   `fix(dates): parse dd/mm for eu locales`. Ticket (closed, completed):
+   [issue 1](https://github.com/ghostxxpol/what-it-shows-4471/issues/1).
 2. **`hint`**: booking-v3 prints `MM/DD/YYYY` under its date field. People at day-first tenants
-   type what the hint says and the form reads it their way. The fix is the hint on the form, not
-   the parser. Ticket: [issue 2](https://github.com/ghostxxpol/what-it-shows-4471/issues/2).
+   type what the hint says and the form reads it their way. The parser fix does not touch it.
+   Engineering closed it as **won't fix**: the booking-v3 form is retired. Ticket (closed, not
+   planned): [issue 2](https://github.com/ghostxxpol/what-it-shows-4471/issues/2).
 
 <Callout kind="warn">
 The intake tag is a guess made from the reporter's browser. It does not decide the problem. The
@@ -38,12 +41,14 @@ tenant does: its locale, and the booking form it runs.
 - A report is `parser` or `hint` from its tenant, as `causes.ts` computes it. A `form` report from
   a booking-v3 tenant is `hint`. The rest are `parser`.
 - Five `parser` reports read as a one-day move, not a swap (desk note `oneDayMove`). They stay
-  counted under `parser`, footnoted by the table above. They may hide a time-zone bug. Nothing in
-  the export proves it.
+  counted under `parser`, footnoted by the table above. A dd/mm fix swaps month and day. It does
+  not move a date by one day, so these five may still be broken. They may hide a time-zone bug.
+  Nothing in the export proves it. They stay open in
+  [issue 3](https://github.com/ghostxxpol/what-it-shows-4471/issues/3).
 
 ## What to change
 
-- Split #4471 into the two tickets above.
+- Split #4471 by cause, as above, and keep the five one-day reports open.
 - Write a new decision record that replaces 0001: merge on cause, not on subject. Do not edit 0001.
 
 <RenderStamp {signature} />

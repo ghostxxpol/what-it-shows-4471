@@ -23,19 +23,19 @@ footer{margin-top:3rem;color:var(--muted);font-size:.8rem;border-top:1px solid v
 <p class="note">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
 <h2>The two problems</h2>
 <ol>
-<li><strong><code>parser</code></strong>: the shared parser reads every date month first, so tenants that write the day first get dates flipped. Ticket: <a href="https://github.com/ghostxxpol/what-it-shows-4471/issues/1">issue 1</a>.</li>
-<li><strong><code>hint</code></strong>: booking-v3 prints <code>MM/DD/YYYY</code> under its date field. People at day-first tenants type what the hint says and the form reads it their way. The fix is the hint on the form, not the parser. Ticket: <a href="https://github.com/ghostxxpol/what-it-shows-4471/issues/2">issue 2</a>.</li>
+<li><strong><code>parser</code></strong>: the shared parser reads every date month first, so tenants that write the day first get dates flipped. Engineering closed #4471 on 5 October: <strong>fixed</strong> by <code>fix(dates): parse dd/mm for eu locales</code>. Ticket (closed, completed): <a href="https://github.com/ghostxxpol/what-it-shows-4471/issues/1">issue 1</a>.</li>
+<li><strong><code>hint</code></strong>: booking-v3 prints <code>MM/DD/YYYY</code> under its date field. People at day-first tenants type what the hint says and the form reads it their way. The parser fix does not touch it. Engineering closed it as <strong>won't fix</strong>: the booking-v3 form is retired. Ticket (closed, not planned): <a href="https://github.com/ghostxxpol/what-it-shows-4471/issues/2">issue 2</a>.</li>
 </ol>
 <aside class="warn">The intake tag is a guess made from the reporter's browser. It does not decide the problem. The tenant does: its locale, and the booking form it runs.</aside>
 <h2>How the reports were placed</h2>
 <ul>
 <li>One id, one report: the export repeats some rows, so each id is counted once.</li>
 <li>A report is <code>parser</code> or <code>hint</code> from its tenant, as <code>causes.ts</code> computes it. A <code>form</code> report from a booking-v3 tenant is <code>hint</code>. The rest are <code>parser</code>.</li>
-<li>Five <code>parser</code> reports read as a one-day move, not a swap (desk note <code>oneDayMove</code>). They stay counted under <code>parser</code>, footnoted by the table above. They may hide a time-zone bug. Nothing in the export proves it.</li>
+<li>Five <code>parser</code> reports read as a one-day move, not a swap (desk note <code>oneDayMove</code>). They stay counted under <code>parser</code>, footnoted by the table above. A dd/mm fix swaps month and day. It does not move a date by one day, so these five may still be broken. They may hide a time-zone bug. Nothing in the export proves it. They stay open in <a href="https://github.com/ghostxxpol/what-it-shows-4471/issues/3">issue 3</a>.</li>
 </ul>
 <h2>What to change</h2>
 <ul>
-<li>Split #4471 into the two tickets above.</li>
+<li>Split #4471 by cause, as above, and keep the five one-day reports open.</li>
 <li>Write a new decision record that replaces 0001: merge on cause, not on subject. Do not edit 0001.</li>
 </ul>
 <p class="stamp">desk ref <b>DR-59JM-0MTZ</b></p>
