@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 · three problems, not one'
+title: '#4471 · two problems, not one'
 owner: ghostxxpol
 status: open
 reviewed: '2026-11-04'
@@ -8,28 +8,24 @@ signature: ghostxxpol
 ---
 
 <script>
-  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
   import Callout from '#lib/kb/Callout.svelte';
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
 [#4471](/kb/incidents/4471) says "one issue, one fix queued". The reports say otherwise. The desk
 merged them on subject line alone ([decision 0001](/kb/decisions/0001-dedupe-by-subject)), and
-the same subjects cover three different causes. A parser fix will close only the first.
+the same subjects cover two different causes. A parser fix will close only the first.
 
-<ProblemTable ticket={4471} />
+<CauseTable ticket={4471} />
 
-## The three problems
+## The two problems
 
 1. **`parser`**: the shared parser reads every date month first, so tenants that write the day
    first get dates flipped. Ticket: [issue 1](https://github.com/ghostxxpol/what-it-shows-4471/issues/1).
 2. **`hint`**: booking-v3 prints `MM/DD/YYYY` under its date field. People at day-first tenants
    type what the hint says and the form reads it their way. The fix is the hint on the form, not
    the parser. Ticket: [issue 2](https://github.com/ghostxxpol/what-it-shows-4471/issues/2).
-3. **`shift`**: five reports where the date is off by one day, not swapped (a June that is always
-   a day off, an invite sent before the booking, Lisbon and Toronto getting different days). It
-   looks like time zones. That is a guess from five reports, so an engineer has to confirm it.
-   Ticket: [issue 3](https://github.com/ghostxxpol/what-it-shows-4471/issues/3).
 
 <Callout kind="warn">
 The intake tag is a guess made from the reporter's browser. It does not decide the problem. The
@@ -41,12 +37,13 @@ tenant does: its locale, and the booking form it runs.
 - One id, one report: the export repeats some rows, so each id is counted once.
 - A report is `parser` or `hint` from its tenant, as `causes.ts` computes it. A `form` report from
   a booking-v3 tenant is `hint`. The rest are `parser`.
-- The five reports in the desk note `oneDayMove` are `shift`. The older
-  [#4471 page](/kb/incidents/4471) counts them under `parser`.
+- Five `parser` reports read as a one-day move, not a swap (desk note `oneDayMove`). They stay
+  counted under `parser`, footnoted by the table above. They may hide a time-zone bug. Nothing in
+  the export proves it.
 
 ## What to change
 
-- Split #4471 into the three tickets above.
+- Split #4471 into the two tickets above.
 - Write a new decision record that replaces 0001: merge on cause, not on subject. Do not edit 0001.
 
 <RenderStamp {signature} />
